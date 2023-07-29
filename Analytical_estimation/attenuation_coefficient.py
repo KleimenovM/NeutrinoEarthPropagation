@@ -33,13 +33,14 @@ if __name__ == "__main__":
         e_theta_matrix[0, i] = get_nu_attenuation_coefficient(lg_e, theta_sample[i])
         e_theta_matrix[1, i] = get_anu_attenuation_coefficient(lg_e, theta_sample[i])
 
-    h2 = rt.TH2F("Hist Name", "Hist Title", n_theta, min(theta_sample), max(theta_sample), n_e, min(lg_e), max(lg_e))
+    h2 = rt.TH2F("Hist Name", "Neutrino flux attenuation coefficient", n_theta, min(theta_sample), max(theta_sample), n_e, min(lg_e), max(lg_e))
 
     for i, theta_i in enumerate(theta_sample):
         for j, e_j in enumerate(lg_e):
             h2.Fill(theta_i, e_j, e_theta_matrix[0, i, j])
 
     print(e_theta_matrix.shape)
-
     h2.Draw("surf2")
+    h2.GetXaxis().SetTitle("#theta, rad")
+    h2.GetYaxis().SetTitle("log_{10}(E / 1 GeV)")
     k = input()
