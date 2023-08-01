@@ -3,6 +3,7 @@
 
 import numpy as np
 import ROOT as rt
+import matplotlib.pyplot as plt
 
 from cross_section import nu_cross_section, anu_cross_section
 from propagation import propagation_integral
@@ -24,6 +25,7 @@ def get_anu_attenuation_coefficient(e: np.ndarray, theta: float):
 
 
 if __name__ == "__main__":
+    """
     n_theta, n_e = 30, 30
     theta_sample = np.linspace(0, np.pi / 2, n_theta)
     lg_e = np.linspace(3, 9, n_e)  # lg(energy)
@@ -44,3 +46,30 @@ if __name__ == "__main__":
     h2.GetXaxis().SetTitle("#theta, rad")
     h2.GetYaxis().SetTitle("log_{10}(E / 1 GeV)")
     k = input()
+    """
+    
+    theta1 = np.arcsin(.1)
+    theta2 = np.arcsin(.9)
+    
+    lg_e = np.linspace(3, 10, 100)
+    at1 = get_nu_attenuation_coefficient(lg_e, theta1)
+    at2 = get_nu_attenuation_coefficient(lg_e, theta2)
+    
+    plt.figure(figsize=(9, 4))
+    plt.subplot(1, 2, 1)
+    plt.plot(lg_e, at1, linestyle='dashed', label=r'$\sin\theta = 0.9$')
+    plt.xlim(5, 9.7)
+    plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
+    plt.ylabel(r'$\kappa$')
+    
+    plt.subplot(1, 2, 2)
+    plt.plot(lg_e, at2, linestyle='dashed', label=r'$\sin\theta = 0.1$')
+    plt.xlim(3, 6.5)
+    plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
+    plt.ylabel(r'$\kappa$')
+    
+    plt.tight_layout()
+    
+    plt.savefig("attenuation.png")
+    plt.show()
+    

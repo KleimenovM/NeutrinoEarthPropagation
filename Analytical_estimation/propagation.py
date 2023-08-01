@@ -26,16 +26,13 @@ def propagation_integral(theta: float, sampling_quality: int = 4):
     if 2 * st < 10 ** (-sampling_quality):
         return .0
 
-    # integration boundaries
-    x_0, x_1 = .0, 2 * st
-
     # integration sample
     sample_width = 2 * 10 ** (-sampling_quality)
 
-    x = np.arange(x_0, x_1, sample_width)  # sampling
+    x = np.arange(.0, 2 * st, sample_width)  # sampling
     r = np.sqrt(1 + x ** 2 - 2 * x * st)  # distance from the center
     d = density(r)  # density sample
-    mm = molar(r)  # molar mass sample
+    mm = 1  # molar(r)  # molar mass sample
 
     y = d / mm
 

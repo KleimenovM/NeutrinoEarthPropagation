@@ -36,12 +36,20 @@ def anu_cross_section(e):
 if __name__ == "__main__":
     e = np.linspace(4, 12, 100)  # energy, GeV
     cs = nu_cross_section(e)
-    plt.plot(np.exp(ln10 * e), cs)
+    acs = anu_cross_section(e)
+    plt.plot(np.exp(ln10 * e), cs, label=r"$\nu$", color='royalblue')
+    plt.plot(np.exp(ln10 * e), acs, label=r"$\bar\nu$", color='darkred', linestyle='dashed')
+    
     plt.xscale('log')
     plt.yscale('log')
-    plt.xlabel(r"$E_\nu,\ GeV$")
-    plt.ylabel(r"$\sigma_{tot},\ cm^{2}$")
+    
+    plt.xlabel(r"$E_\nu,\ GeV$", fontsize=14)
+    plt.ylabel(r"$\sigma_{tot},\ cm^{2}$", fontsize=14)
+    plt.tick_params(labelsize=14)
+    
+    plt.legend(fontsize=14)
+    
     plt.grid(linestyle='dashed')
     plt.tight_layout()
-    # plt.savefig("cross_section.png")
+    plt.savefig("cross_section.png")
     plt.show()
