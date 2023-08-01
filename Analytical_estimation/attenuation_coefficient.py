@@ -61,15 +61,17 @@ if __name__ == "__main__":
     plt.xlim(5, 9.7)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
+    plt.grid(linestyle='dashed')
     
     plt.subplot(1, 2, 2)
     plt.plot(lg_e, at2, linestyle='dashed', label=r'$\sin\theta = 0.1$')
     plt.xlim(3, 6.5)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
+    plt.grid(linestyle='dashed')
     
     plt.tight_layout()
     
-    plt.savefig("attenuation.png")
+    plt.savefig("attenuation-ref.png")
     plt.show()
     
