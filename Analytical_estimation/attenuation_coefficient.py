@@ -57,18 +57,20 @@ if __name__ == "__main__":
     
     plt.figure(figsize=(9, 4))
     plt.subplot(1, 2, 1)
-    plt.plot(lg_e, at1, linestyle='dashed', label=r'$\sin\theta = 0.9$')
+    plt.plot(lg_e, at1, linestyle='dashed', label=r'$\sin\theta = 0.1$')
     plt.xlim(5, 9.7)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
     plt.grid(linestyle='dashed')
+    plt.legend()
     
     plt.subplot(1, 2, 2)
-    plt.plot(lg_e, at2, linestyle='dashed', label=r'$\sin\theta = 0.1$')
+    plt.plot(lg_e, at2, linestyle='dashed', label=r'$\sin\theta = 0.9$')
     plt.xlim(3, 6.5)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
     plt.grid(linestyle='dashed')
+    plt.legend()
     
     plt.tight_layout()
     
