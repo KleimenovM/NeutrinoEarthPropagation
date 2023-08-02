@@ -2,24 +2,26 @@
 # Attenuation coefficient calculation
 
 import numpy as np
-import ROOT as rt
+# import ROOT as rt
 import matplotlib.pyplot as plt
 
-from cross_section import nu_cross_section, anu_cross_section
+from cross_section import CrossSectionTable, CrossSectionEstimation
 from propagation import propagation_integral
 
 N_A = 6.02 * 1e23  # 1/mol
 R = 6371.0 * 1e5  # cm
 
+CSTable = CrossSectionTable()
+
 
 def get_nu_attenuation_coefficient(e: np.ndarray, theta: float):
-    cross_section = nu_cross_section(e)
+    cross_section = CSTable.nu_cross_section_value(e)
     propagation_coefficient = propagation_integral(theta)
     return np.exp(-R * N_A * cross_section * propagation_coefficient)
 
 
 def get_anu_attenuation_coefficient(e: np.ndarray, theta: float):
-    cross_section = anu_cross_section(e)
+    cross_section = CSTable.anu_cross_section_value(e)
     propagation_coefficient = propagation_integral(theta)
     return np.exp(-R * N_A * cross_section * propagation_coefficient)
 
@@ -51,14 +53,15 @@ if __name__ == "__main__":
     theta1 = np.arcsin(.1)
     theta2 = np.arcsin(.9)
     
-    lg_e = np.linspace(3, 10, 100)
+    lg_e = np.linspace(1.7, 11, 100)
     at1 = get_nu_attenuation_coefficient(lg_e, theta1)
     at2 = get_nu_attenuation_coefficient(lg_e, theta2)
     
-    plt.figure(figsize=(9, 4))
+    plt.figure(figsize=(11, 4))
     plt.subplot(1, 2, 1)
     plt.plot(lg_e, at1, linestyle='dashed', label=r'$\sin\theta = 0.1$')
-    plt.xlim(5, 9.7)
+    plt.xlim(1.7, 11)
+    plt.ylim(-.1, 1.1)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
     plt.grid(linestyle='dashed')
@@ -66,7 +69,8 @@ if __name__ == "__main__":
     
     plt.subplot(1, 2, 2)
     plt.plot(lg_e, at2, linestyle='dashed', label=r'$\sin\theta = 0.9$')
-    plt.xlim(3, 6.5)
+    plt.xlim(1.7, 11)
+    plt.ylim(-.1, 1.1)
     plt.xlabel(r'$\log_{10}(E_\nu[GeV])$')
     plt.ylabel(r'$\kappa$')
     plt.grid(linestyle='dashed')
