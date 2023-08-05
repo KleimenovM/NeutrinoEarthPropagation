@@ -58,16 +58,16 @@ class CrossSectionTable:
         self.anf = interp1d(self.e, self.anc, "cubic")
 
     def nu_cross_section_points(self):
-        return self.e, self.cc + self.nc
+        return self.e, self.cc # + self.nc
 
     def anu_cross_section_points(self):
-        return self.e, self.acc + self.anc
+        return self.e, self.acc # + self.anc
 
     def nu_cross_section_value(self, e):
-        return self.ccf(e) + self.ncf(e)
+        return self.ccf(e) # + self.ncf(e)
 
     def anu_cross_section_value(self, e):
-        return self.acf(e) + self.anf(e)
+        return self.acf(e) # + self.anf(e)
 
 
 if __name__ == "__main__":
@@ -75,12 +75,12 @@ if __name__ == "__main__":
     cs_table = CrossSectionTable()
 
     lg_e = np.linspace(1.7, 11.6, 100)  # energy, GeV
-    cs = cs_estimation.nu_cross_section(lg_e)
-    acs = cs_estimation.anu_cross_section(lg_e)
+    # cs = cs_estimation.nu_cross_section(lg_e)
+    # acs = cs_estimation.anu_cross_section(lg_e)
     tc = cs_table.nu_cross_section_value(lg_e)
     ta = cs_table.anu_cross_section_value(lg_e)
-    plt.plot(np.exp(Ln10 * lg_e), cs, label=r"$\nu,\ high-energy\ fit$", color='royalblue', alpha=.6)
-    plt.plot(np.exp(Ln10 * lg_e), acs, label=r"$\bar\nu,\ high-energy\ fit$", color='darkred', linestyle='dashed', alpha=.6)
+    # plt.plot(np.exp(Ln10 * lg_e), cs, label=r"$\nu,\ high-energy\ fit$", color='royalblue', alpha=.6)
+    # plt.plot(np.exp(Ln10 * lg_e), acs, label=r"$\bar\nu,\ high-energy\ fit$", color='darkred', linestyle='dashed', alpha=.6)
     plt.plot(np.exp(Ln10 * lg_e), tc, label=r"$\nu$", color='royalblue')
     plt.plot(np.exp(Ln10 * lg_e), ta, label=r"$\bar\nu$", color='darkred', linestyle='dashed')
 
